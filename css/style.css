@@ -14,6 +14,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10vh;
 
 }
 
@@ -43,10 +44,19 @@ body{
 
 .fixedElement{
     position:fixed;
-    bottom: 10px;
+    bottom: 0;
     right: 0;
-    width:39%;
+    width:100%;
     z-index:100;
+    padding: 10px;
+    background-color: black;
+
+}
+
+.envoi{
+    margin-left: 50px;
+    background-color: wheat;
+    color: Black;
 }
 
 #message{
@@ -58,6 +68,7 @@ body{
 
 .landingPage{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -68,6 +79,8 @@ body{
     background-color: white;
     margin-top: 30vh;
     border-radius: 25px;
+    min-width: 40vw;
+    max-width: 55vw;
 
 }
 
@@ -87,21 +100,22 @@ body{
 
 .form{
     padding: 10px;
-    margin: 10px;
+    margin: 5px;
 }
 
 #username,#password{
     border: black 1px solid;
-    margin: 20px;
+    margin: 10px;
     max-width: 30vw;
 }
 
 
 .already{
-    width: 100%;
+    margin: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
+    padding: 1px;
 }
 
 .navbar{
@@ -144,6 +158,13 @@ body{
 .bouton{
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-width: 10vw;
+}
+
+.boutonConnect{
+    display: flex;
     justify-content: flex-end;
     align-items: flex-end;
 }
