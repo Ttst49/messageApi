@@ -3,20 +3,15 @@ const boutonEnvoyer = document.querySelector('.envoi')
 const requetePost = new XMLHttpRequest();
 const signUpButton = document.querySelector('.signUp')
 const chatButton = document.querySelector('.chat')
-
-
 bodyPage = document.querySelector('body')
 fil= document.querySelector('.filAccueil')
 
 let token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Njg2MTI1OTMsImV4cCI6MTY2ODYxNjE5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiVGhpYmF1dCJ9.XTdNrLWWHIMgDhVyw3cRCG0UwdeONBix7NRxnHXJ4JcdL23B4xSvWKmNlrnYnvijEV6ZNbBFsh_xBi6QOfmeewSGZzrZTGqu8h5H_i6kE9-2RSK1UCafkpc72SVUsT-yeGEyxUsaRGthH7FIFtlQ7Upca5NFqydfdJD7X2WHwYChx8cMZYNFNOCN0dgg6tY33ZhiSSXnH2gdWyG1vGMyRKn5KYl_2gqBsI1qdb53I3rFbLMn4pPGdvYPMMscc3CEwrq6iJzFdX3COcV4xAf2IxR8p7_MALrsP6ayTGoJgzNspXYysLgrYNe-iIIoFm7CQoL19zDqfEsD2yyPu_rJ0A"
 let usedtoken=""
 let idUser=39
-
 let nom=''
 let id=''
 let contenu=''
-
-
 let templateChat=`
     <div class="container page">
         <div class="navbar">
@@ -32,7 +27,6 @@ let templateChat=`
         </div>
     </div>
 `
-
 let templateSignUp=`
 <div class="container page">
     <div class="navbar">
