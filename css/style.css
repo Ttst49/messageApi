@@ -1,0 +1,149 @@
+.page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+body{
+    background-color: wheat;
+}
+.filAccueil{
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.carteTitre{
+    text-transform: capitalize;
+    max-width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.carteSousTitre{
+    text-decoration: underline black;
+}
+
+.carteContenu{
+    color: darkgrey;
+
+}
+
+.carte{
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+.fixedElement{
+    position:fixed;
+    bottom: 10px;
+    right: 0;
+    width:39%;
+    z-index:100;
+}
+
+#message{
+    background-color: white;
+    width: 80%;
+    border-radius: 10px;
+}
+
+
+.landingPage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    height: 40vh;
+    width: 40vw;
+    background-color: white;
+    margin-top: 30vh;
+    border-radius: 25px;
+
+}
+
+.topbar{
+    width: 100%;
+    height: 5vh;
+    background-color: black;
+}
+
+.remain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.form{
+    padding: 10px;
+    margin: 10px;
+}
+
+#username,#password{
+    border: black 1px solid;
+    margin: 20px;
+    max-width: 30vw;
+}
+
+
+.already{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.navbar{
+    width: 100%;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    background-color: rgb(0, 0, 0);
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+.logo{
+    color: wheat;
+    font-size: large;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.chat{
+    color: wheat;
+    font-size: large;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.signUp{
+    color: wheat;
+    font-size: large;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.signUp:hover,.chat:hover{
+    color: rgba(255, 191, 0, 0.37);
+    cursor: pointer;
+}
+
+.bouton{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
