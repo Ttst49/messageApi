@@ -8,9 +8,8 @@ fil= document.querySelector('.filAccueil')
 
 
 let baseUrl= 'https://139.162.156.85:8000'
-let token='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Njg3NjY1OTUsImV4cCI6MTY2ODc3MDE5NSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiVGhpYmF1dCJ9.nN5dWl6pJsT-FGF1wkwDlspxOmo2Nnd_yGR3b2ilWqMpKstN9SeCYjI-Ze_8QEtYamANU9GZu8iMHP3WMzGjWquD8p8ecERoHnF6b9U8LyFvcAD8y0ku-DEKqJUaCpS1YOuIYwT5IMFxa_sknsNNRBOIKryxdJQh92w7hf1yMLEvOUinFx87zpAMKuBMXuOVx-N0JmzMm9d40PlNwvnY8tSIkKo0hYMyTV_WRsWcu_MGo2TEERBJ2-xDGs2GVk-92lgL7uxjv-cUMPTEA-Z9g93ibGPLP5c-j3OEMdHxmZvByqTmqamgGfJgRAI0HgpPrQesFEuHVBrOxuvJ_5TI8A'
+let token='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Njg3Njk4MjIsImV4cCI6MTY2ODc3MzQyMiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiVGhpYmF1dCJ9.jOWiIbunE1lOmR7wH-EjBEIYhnw-WIRe7TH6EV1DeqCkPYkqfubAX8nMYhUyo6oLvW5cK-GkAx-GxgdmIac_RyjWkCD8gtlim3aD_TNJqyV0L2bjd0ouWqnM7L_FhcsWZSiTLslhc5gJyCRg8zR8Yrw223PRCFJomQbaPMltII14gialQkexgtIMmRHYUF748i6ednnq6sPUkuk3yXuaKjF04r2YFdBSWdEXFfIlLV52DO_9Jwhi4zFl5WC92SqU5cwp8KX1OWjx0RkuYUtyhyU-V9bUSDNq7olllzqiP1iWTKQa6sA9CLgYzn2DUDZMcpWe2cT8fbSWm5FhN4s9NA'
 let usedtoken=""
-let idUser=39
 let nom=''
 let id=''
 let contenu=''
@@ -46,6 +45,7 @@ let templateSignUp=`
             <div class="form">
                     <label for="username">Username</label>
                     <input required type="text" id="username" placeholder="John Doe"> <br>
+                    <div class="modalError"></div>
                     <label for="password">Password</label>
                     <input required type="password" id="password" minlength="6" placeholder="********">
                     <div class="bouton">
@@ -69,6 +69,7 @@ let templateConnection=`
     </div>
 </div>
         <div class="landingPage">
+        <div style="color: red" class="modalError"></div>
 <div class="login">
     <div class="topbar">
     </div>
@@ -77,7 +78,6 @@ let templateConnection=`
             <div class="form">
                     <label for="username">Username</label>
                     <input required type="text" id="usernameConnection" placeholder="John Doe"> <br>
-                    <div style="color: red" class="usernameAlreadyTaken"></div>
                     <label for="password">Password</label>
                     <input required type="password" id="passwordConnection" minlength="6" placeholder="********">
                     <div class="bouton">
@@ -148,55 +148,152 @@ signUpButton.addEventListener('click',()=>{
                     alert('name user already used')
                 }else {
                     display(templateConnection)
+
+
+                    const alreadyAccount=document.querySelector('.connexion')
+                    const createUsername = document.querySelector('#usernameConnection')
+                    const createPassword = document.querySelector('#passwordConnection')
+
+                    modalExemple=`<div className="modal" tabIndex="-1">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Modal title</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary"
+                                data-bs-dismiss="modal">Close
+                        </button>
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>`
+
+                    alreadyAccount.addEventListener('click',()=>{
+                        const erreurModal = document.querySelector('.modalError')
+                        chatButton.addEventListener('click',()=>{
+                            display(templateChat)
+                        })
+                        let body={
+                            username:`${createUsername.value}`,
+                            password:`${createPassword.value}`
+                        }
+                        let fetchParams={
+                            method: "POST",
+                            body: JSON.stringify(body),
+                            headers: {"Content-Type":"application/json"}
+
+                        }
+
+                        fetch(`${baseUrl}/login`,fetchParams)
+                            .then(responseSerialise=>responseSerialise.json())
+                            .then(responseDeserialise=>{
+                                if (responseDeserialise.message ==="Invalid credentials."){
+                                    erreurModal.innerHTML= modalExemple
+
+
+                                }else {
+                                    console.log("Bienvenue!")
+                                    usedtoken = responseDeserialise.token
+                                    console.log(usedtoken)
+                                    display(templateChat)
+                                    refreshPage(200)
+
+                                }
+                            })
+                    })
+
+
+
+
+
+
                 }
             })
 
         console.log("Merci de vous etre inscrit")
 
     })
+    chatButton.addEventListener('click',()=>{
+        display(templateChat)
+    })
     alreadyButton.addEventListener('click',()=>{
+        const chatButton = document.querySelector('.chat')
+
+        chatButton.addEventListener('click',()=>{
+            display(templateChat)
+        })
         display(templateConnection)
 
         const alreadyAccount=document.querySelector('.connexion')
         const createUsername = document.querySelector('#usernameConnection')
         const createPassword = document.querySelector('#passwordConnection')
 
+        modalExemple=`<div className="modal" tabIndex="-1">
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Modal title</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div className="modal-body">
+                        <p>Modal body text goes here.</p>
+                    </div>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary"
+                                data-bs-dismiss="modal">Close
+                        </button>
+                        <button type="button" className="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>`
 
-        let body={
-            username:`${createUsername.value}`,
-            password:`${createPassword.value}`
-        }
-        let fetchParams={
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {"Content-Type":"application/json"}
-
-        }
             alreadyAccount.addEventListener('click',()=>{
+                const erreurModal = document.querySelector('.modalError')
+                chatButton.addEventListener('click',()=>{
+                    display(templateChat)
+                })
+                let body={
+                    username:`${createUsername.value}`,
+                    password:`${createPassword.value}`
+                }
+                let fetchParams={
+                    method: "POST",
+                    body: JSON.stringify(body),
+                    headers: {"Content-Type":"application/json"}
+
+                }
+
                 fetch(`${baseUrl}/login`,fetchParams)
                     .then(responseSerialise=>responseSerialise.json())
                     .then(responseDeserialise=>{
                         if (responseDeserialise.message ==="Invalid credentials."){
-                            alert("an error occured")
-                            console.log(createUsername.value)
-                            console.log(createPassword.value)
+                            erreurModal.innerHTML= modalExemple
+
+
                         }else {
                             console.log("Bienvenue!")
-                            //display(templateChat)
-                            //refreshPage(200)
-                            token = responseDeserialise.value
-                            return token
+                            usedtoken = responseDeserialise.token
+                            console.log(usedtoken)
+                            display(templateChat)
+                            refreshPage(200)
+
                         }
                     })
             })
 
         })
 
+    })
 
-    })
-    chatButton.addEventListener('click',()=>{
-        display(templateChat)
-    })
 
 
 
@@ -209,10 +306,10 @@ function display(content){
     bodyPage.innerHTML=content
 }
 
-function getMessages(){
+function getMessages(bearerToken){
     fetch(`${baseUrl}/api/messages/`,{
         headers:{'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${bearerToken}`
                 }}      )
         .then(response=>response.json())
         .then(messages=> {
@@ -261,4 +358,5 @@ bodyPage.addEventListener('load',()=>{
 })
 
 
-getMessages()
+getMessages(token)
+console.log(usedtoken)
