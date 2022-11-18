@@ -6,7 +6,9 @@ const chatButton = document.querySelector('.chat')
 bodyPage = document.querySelector('body')
 fil= document.querySelector('.filAccueil')
 
-let token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Njg2MTI1OTMsImV4cCI6MTY2ODYxNjE5Mywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiVGhpYmF1dCJ9.XTdNrLWWHIMgDhVyw3cRCG0UwdeONBix7NRxnHXJ4JcdL23B4xSvWKmNlrnYnvijEV6ZNbBFsh_xBi6QOfmeewSGZzrZTGqu8h5H_i6kE9-2RSK1UCafkpc72SVUsT-yeGEyxUsaRGthH7FIFtlQ7Upca5NFqydfdJD7X2WHwYChx8cMZYNFNOCN0dgg6tY33ZhiSSXnH2gdWyG1vGMyRKn5KYl_2gqBsI1qdb53I3rFbLMn4pPGdvYPMMscc3CEwrq6iJzFdX3COcV4xAf2IxR8p7_MALrsP6ayTGoJgzNspXYysLgrYNe-iIIoFm7CQoL19zDqfEsD2yyPu_rJ0A"
+
+let baseUrl= 'https://139.162.156.85:8000'
+let token='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Njg3NjY1OTUsImV4cCI6MTY2ODc3MDE5NSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiVGhpYmF1dCJ9.nN5dWl6pJsT-FGF1wkwDlspxOmo2Nnd_yGR3b2ilWqMpKstN9SeCYjI-Ze_8QEtYamANU9GZu8iMHP3WMzGjWquD8p8ecERoHnF6b9U8LyFvcAD8y0ku-DEKqJUaCpS1YOuIYwT5IMFxa_sknsNNRBOIKryxdJQh92w7hf1yMLEvOUinFx87zpAMKuBMXuOVx-N0JmzMm9d40PlNwvnY8tSIkKo0hYMyTV_WRsWcu_MGo2TEERBJ2-xDGs2GVk-92lgL7uxjv-cUMPTEA-Z9g93ibGPLP5c-j3OEMdHxmZvByqTmqamgGfJgRAI0HgpPrQesFEuHVBrOxuvJ_5TI8A'
 let usedtoken=""
 let idUser=39
 let nom=''
@@ -42,7 +44,6 @@ let templateSignUp=`
     <div class="remain">
         Create an account
             <div class="form">
-            <form action="">
                     <label for="username">Username</label>
                     <input required type="text" id="username" placeholder="John Doe"> <br>
                     <label for="password">Password</label>
@@ -50,14 +51,45 @@ let templateSignUp=`
                     <div class="bouton">
                         <button class="btn btn-primary inscription">S'inscrire</button>
                     </div>
-             </form>
             </div>
             <div class="boutonConnect">
         </div>
     </div>
     
 </div>
-<button class="already btn btn-danger"> J'ai déja un compte</button>
+<button class="alreadyAccount btn btn-danger"> J'ai déja un compte</button>
+</div>
+    `
+let templateConnection=`
+<div class="container page">
+    <div class="navbar">
+        <span class="logo">Who's app</span>
+        <span class="chat">chat</span>
+        <span class="signUp">sign up</span>
+    </div>
+</div>
+        <div class="landingPage">
+<div class="login">
+    <div class="topbar">
+    </div>
+    <div class="remain">
+        Create an account
+            <div class="form">
+                    <label for="username">Username</label>
+                    <input required type="text" id="usernameConnection" placeholder="John Doe"> <br>
+                    <div style="color: red" class="usernameAlreadyTaken"></div>
+                    <label for="password">Password</label>
+                    <input required type="password" id="passwordConnection" minlength="6" placeholder="********">
+                    <div class="bouton">
+                        <button class="btn btn-primary connexion">Se connecter</button>
+                    </div>
+            </div>
+            <div class="boutonConnect">
+        </div>
+    </div>
+    
+</div>
+
 </div>
     `
 
@@ -65,7 +97,7 @@ let templateSignUp=`
 
 boutonEnvoyer.addEventListener("click",()=>{
 
-    requetePost.open("POST", "https://192.168.12.246:8000/api/messages/new", true);
+    requetePost.open("POST", `${baseUrl}/api/messages/new`, true);
     requetePost.setRequestHeader('Content-Type', 'application/json');
     requetePost.setRequestHeader('Authorization',`Bearer ${token}`)
     requetePost.send(JSON.stringify({
@@ -90,33 +122,76 @@ signUpButton.addEventListener('click',()=>{
 
     display(templateSignUp)
     const inscriptionButton= document.querySelector('.inscription')
-    const alreadyButton = document.querySelector('.already')
+    const alreadyButton = document.querySelector('.alreadyAccount')
     const createUsername = document.querySelector('#username')
     const createPassword = document.querySelector('#password')
+    const connexionButton = document.querySelector('.alreadyAccount')
 
 
 
     inscriptionButton.addEventListener('click',()=>{
-        console.log(createPassword.value)
-        console.log(createUsername.value)
-
-        fetch("https://139.162.156.85:8000/register"),{
-            method: "POST",
-            headers:{'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Njg2MDg0MDEsImV4cCI6MTY2ODYxMjAwMSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiVGhpYmF1dCJ9.NHEvShoeygHUp7txmrShNS4ACkd9t8YeWTA3oftL7RNaOKAhMiAsmo2SL7-GtlkGxDgzaWb2Yo_vK0Ty7nxGhNunAU4TiNTT6S6ZKVae6EROUA_YQzFgrSC8DlLjszOM0PqijklTSfCJHiHv_8zWFr5OcKIc0D5gmekMoM_BarJ-_hTKb1FA_JgXRQp1Ys9fU071_thfHzFBuQUY8a8VCaKI3TrVLIJIViJq9zoLsYL_94vUMc3yqGrN1Nrx2DUYhlRDyFHEBjJ0pMcbTrNFchOhNMMFTcu581tDsAoAy8KIYXszGZ-bHwW5daJvHeX5kSKMeiQQdBuzgbkppeG4wQ'},
-            body: `{
-    "username":"${createUsername.value}",
-    "password":"${createPassword.value}"
-}`
+        let body={
+            username:`${createUsername.value}`,
+            password:`${createPassword.value}`
         }
+        let fetchParams={
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {"Content-Type":"application/json"}
 
-        alert(`Merci de vous être inscrit ${createUsername.value}`)
-        display(templateChat)
-        refreshPage(200)
+        }
+        console.log(fetchParams)
+        fetch(`${baseUrl}/register`,fetchParams)
+            .then(responseSerialise => responseSerialise.json())
+            .then(responseDeserialise=>{
+                if (responseDeserialise ==='username already taken'){
+                    alert('name user already used')
+                }else {
+                    display(templateConnection)
+                }
+            })
+
+        console.log("Merci de vous etre inscrit")
 
     })
     alreadyButton.addEventListener('click',()=>{
-        display(templateChat)
-        refreshPage(200)
+        display(templateConnection)
+
+        const alreadyAccount=document.querySelector('.connexion')
+        const createUsername = document.querySelector('#usernameConnection')
+        const createPassword = document.querySelector('#passwordConnection')
+
+
+        let body={
+            username:`${createUsername.value}`,
+            password:`${createPassword.value}`
+        }
+        let fetchParams={
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {"Content-Type":"application/json"}
+
+        }
+            alreadyAccount.addEventListener('click',()=>{
+                fetch(`${baseUrl}/login`,fetchParams)
+                    .then(responseSerialise=>responseSerialise.json())
+                    .then(responseDeserialise=>{
+                        if (responseDeserialise.message ==="Invalid credentials."){
+                            alert("an error occured")
+                            console.log(createUsername.value)
+                            console.log(createPassword.value)
+                        }else {
+                            console.log("Bienvenue!")
+                            //display(templateChat)
+                            //refreshPage(200)
+                            token = responseDeserialise.value
+                            return token
+                        }
+                    })
+            })
+
+        })
+
 
     })
     chatButton.addEventListener('click',()=>{
@@ -124,7 +199,8 @@ signUpButton.addEventListener('click',()=>{
     })
 
 
-})
+
+
 
 
 function display(content){
@@ -134,7 +210,7 @@ function display(content){
 }
 
 function getMessages(){
-    fetch("https://192.168.12.246:8000/api/messages",{
+    fetch(`${baseUrl}/api/messages/`,{
         headers:{'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
                 }}      )

@@ -110,13 +110,14 @@ body{
 }
 
 
-.already{
+.alreadyAccount{
     margin: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     padding: 1px;
 }
+
 
 .navbar{
     width: 100%;
