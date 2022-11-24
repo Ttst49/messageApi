@@ -169,3 +169,45 @@ body{
     justify-content: flex-end;
     align-items: flex-end;
 }
+
+.modal{
+    background-color: #ee9801;
+    z-index: 10000;
+    height: 100vh;
+    width: 100vw;
+
+}
+
+.carteLittle{
+}
+
+.carteLittleBody{
+}
+
+.carteLittleTitre{
+}
+
+.carteLittleSousTitre{
+
+}
+
+.carteLittleContenu{
+
+}
+
+
+.carteMini{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carteMiniTitre{
+    font-size: small;
+}
+
+.carteMiniContenu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -7,12 +7,12 @@ bodyPage = document.querySelector('body')
 fil= document.querySelector('.filAccueil')
 
 
-let baseUrl= 'https://139.162.156.85:8000'
-let token='eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2Njg3Njk4MjIsImV4cCI6MTY2ODc3MzQyMiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiVGhpYmF1dCJ9.jOWiIbunE1lOmR7wH-EjBEIYhnw-WIRe7TH6EV1DeqCkPYkqfubAX8nMYhUyo6oLvW5cK-GkAx-GxgdmIac_RyjWkCD8gtlim3aD_TNJqyV0L2bjd0ouWqnM7L_FhcsWZSiTLslhc5gJyCRg8zR8Yrw223PRCFJomQbaPMltII14gialQkexgtIMmRHYUF748i6ednnq6sPUkuk3yXuaKjF04r2YFdBSWdEXFfIlLV52DO_9Jwhi4zFl5WC92SqU5cwp8KX1OWjx0RkuYUtyhyU-V9bUSDNq7olllzqiP1iWTKQa6sA9CLgYzn2DUDZMcpWe2cT8fbSWm5FhN4s9NA'
-let usedtoken=""
+let baseUrl= 'https://b1messenger.tk'
+let token=""
 let nom=''
 let id=''
-let contenu=''
+let content=''
+let react=''
 let templateChat=`
     <div class="container page">
         <div class="navbar">
@@ -26,8 +26,8 @@ let templateChat=`
             <input type="text" id="message" placeholder="votre message">
             <button class="btn btn-success envoi">envoyer</button>
         </div>
-    </div>
-`
+    </div>`
+
 let templateSignUp=`
 <div class="container page">
     <div class="navbar">
@@ -74,7 +74,7 @@ let templateConnection=`
     <div class="topbar">
     </div>
     <div class="remain">
-        Create an account
+        Connect to your account
             <div class="form">
                     <label for="username">Username</label>
                     <input required type="text" id="usernameConnection" placeholder="John Doe"> <br>
@@ -92,6 +92,7 @@ let templateConnection=`
 
 </div>
     `
+let allmessages=""
 
 
 
@@ -125,7 +126,6 @@ signUpButton.addEventListener('click',()=>{
     const alreadyButton = document.querySelector('.alreadyAccount')
     const createUsername = document.querySelector('#username')
     const createPassword = document.querySelector('#password')
-    const connexionButton = document.querySelector('.alreadyAccount')
 
 
 
@@ -154,26 +154,29 @@ signUpButton.addEventListener('click',()=>{
                     const createUsername = document.querySelector('#usernameConnection')
                     const createPassword = document.querySelector('#passwordConnection')
 
-                    modalExemple=`<div className="modal" tabIndex="-1">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Modal title</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <p>Modal body text goes here.</p>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary"
-                                data-bs-dismiss="modal">Close
-                        </button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>`
+                    modalExemple=`<!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                      Launch static backdrop modal
+                                    </button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                      <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            ...
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Understood</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>`
 
                     alreadyAccount.addEventListener('click',()=>{
                         const erreurModal = document.querySelector('.modalError')
@@ -200,11 +203,10 @@ signUpButton.addEventListener('click',()=>{
 
                                 }else {
                                     console.log("Bienvenue!")
-                                    usedtoken = responseDeserialise.token
-                                    console.log(usedtoken)
-                                    display(templateChat)
-                                    refreshPage(200)
-
+                                    token = responseDeserialise.token
+                                    console.log(token)
+                                    refreshPage()
+                                    return token
                                 }
                             })
                     })
@@ -235,26 +237,29 @@ signUpButton.addEventListener('click',()=>{
         const createUsername = document.querySelector('#usernameConnection')
         const createPassword = document.querySelector('#passwordConnection')
 
-        modalExemple=`<div className="modal" tabIndex="-1">
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Modal title</h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <p>Modal body text goes here.</p>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary"
-                                data-bs-dismiss="modal">Close
+        modalExemple=`<!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                          Launch static backdrop modal
                         </button>
-                        <button type="button" className="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>`
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                ...
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Understood</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>`
 
             alreadyAccount.addEventListener('click',()=>{
                 const erreurModal = document.querySelector('.modalError')
@@ -276,16 +281,15 @@ signUpButton.addEventListener('click',()=>{
                     .then(responseSerialise=>responseSerialise.json())
                     .then(responseDeserialise=>{
                         if (responseDeserialise.message ==="Invalid credentials."){
-                            erreurModal.innerHTML= modalExemple
+                            erreurModal.innerHTML+= modalExemple
 
 
                         }else {
                             console.log("Bienvenue!")
-                            usedtoken = responseDeserialise.token
-                            console.log(usedtoken)
-                            display(templateChat)
-                            refreshPage(200)
-
+                            token = responseDeserialise.token
+                            console.log(token)
+                            refreshPage()
+                            return token
                         }
                     })
             })
@@ -296,9 +300,7 @@ signUpButton.addEventListener('click',()=>{
 
 
 
-
-
-
+function printChat(template,)
 
 function display(content){
     clearBodyPage()
@@ -310,17 +312,57 @@ function getMessages(bearerToken){
     fetch(`${baseUrl}/api/messages/`,{
         headers:{'Content-Type': 'application/json',
             'Authorization': `Bearer ${bearerToken}`
-                }}      )
+        }}      )
         .then(response=>response.json())
-        .then(messages=> {
+        .then(messages=>{
             messages.forEach(message=>{
-                nom=message.author.username
-                id=message.id
-                contenu=message.content
-                templateCard(nom,id,contenu)
+                nom = message.author.username
+                id = message.id
+                content = message.content
+                templateCard(nom, id, content)
 
+                message.responses.forEach(response=>{
+                    nom = response.author.username
+                    id = response.id
+                    content = response.content
+                    templateLittleCard(nom, id, content)
+                })
+                message.reactions.forEach(reaction=>{
+                    name = reaction.author.username
+                    switch (reaction.type) {
+                        case("happy"):
+                            react = "(*^▽^*)"
+                            templateminiCard(name, react)
+                            break
+
+                        case("sad"):
+                            react = "(⏓‿⏓)"
+                            templateminiCard(name, react)
+                            break
+
+                        case ("like"):
+                            react = "〘•௰•〙👍"
+                            templateminiCard(name, react)
+                            break
+
+                        case("dislike"):
+                            react = '👎〘•௰•〙'
+                            templateminiCard(name, react)
+                            break
+
+                        case ('love'):
+                            react = '{ᶫᵒᵛᵉᵧₒᵤ}•.❮♥ᄉ♥❯'
+                            templateminiCard(name, react)
+                            break
+                    }
+
+                })
             })
         })
+
+    setTimeout("scrollBy(0,100000)",1000)
+
+
 }
 
 function clearBodyPage(){
@@ -341,22 +383,45 @@ function templateCard(name,identifiant,content){
                     </div>
                 </div>`
 
-    fil.innerHTML += template
+    allmessages += template
+    console.log("booj")
 }
 
-async function refreshPage(t){
+function templateLittleCard(name,identifiant,content){
+    let template= `
+                <div class="card carte carteLittle" style="width: 12rem;">
+                    <div class="card-body carteLittleBody">
+                        <h5 class="card-title carteTitre carteLittleTitre">${name}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted carteSousTitre carteLittleSousTitre">message numéro ${identifiant}</h6>
+                        <p class="card-text carteContenu carteLittleContenu"><strong>${content}</strong></p>
+                    </div>
+                </div>`
 
-    setTimeout("location.reload();", t);
+    allmessages += template
+    console.log("meh")
 
 }
 
-bodyPage.addEventListener('load',()=>{
-    window.scroll({
-        bottom: 10000,
-        behavior: 'smooth'
-    });
-})
+function templateminiCard(name,reaction){
+    let template=`
+                <div class="card carte carteMini" style="width: 8rem;">
+                    <div class="card-body carteMiniBody">
+                        <h5 class="card-title carteMiniTitre">${name}</h5>
+                        <p class="card-text carteMiniContenu"><strong>${reaction}</strong></p>
+                    </div>
+                </div>`
+    allmessages += template
+    console.log("bonjur")
+
+}
+
+async function refreshPage(){
+
+    getMessages(token)
+
+}
+
+
 
 
 getMessages(token)
-console.log(usedtoken)
